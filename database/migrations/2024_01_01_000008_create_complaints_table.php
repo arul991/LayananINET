@@ -1,0 +1,43 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('complaints', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('customer_id')->constrained('customers')->cascadeOnDelete();
+            $table->foreignId('booking_id')->nullable()->constrained('bookings')->cascadeOnDelete();
+            $table->string('title');
+            $table->text('description');
+            $table->enum('status', [
+                'open',
+                'in_progress',
+                'resolved',
+                'closed'
+            ])->default('open');
+            $table->text('response')->nullable();
+            $table->foreignId('responded_by')->nullable()->constrained('users');
+            $table->dateTime('responded_at')->nullable();
+            $table->timestamps();
+            
+            $table->index('customer_id');
+            $table->index('status');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('complaints');
+    }
+};

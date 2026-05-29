@@ -33,43 +33,28 @@ class User extends Authenticatable
         ];
     }
 
-    /**
-     * Check if user is admin
-     */
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
-
-    /**
-     * Check if user is customer
-     */
-    public function isCustomer(): bool
-    {
-        return $this->role === 'customer';
-    }
-
-    /**
-     * Check if user is teknisi
-     */
-    public function isTekhnician(): bool
-    {
-        return $this->role === 'teknisi';
-    }
-
-    /**
-     * Relationship: User -> Customer
-     */
     public function customer()
     {
         return $this->hasOne(Customer::class);
     }
 
-    /**
-     * Relationship: User -> Teknisi
-     */
     public function teknisi()
     {
         return $this->hasOne(Teknisi::class);
+    }
+
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isCustomer()
+    {
+        return $this->role === 'customer';
+    }
+
+    public function isTeknisi()
+    {
+        return $this->role === 'teknisi';
     }
 }

@@ -19,8 +19,14 @@ return new class extends Migration
             $table->string('password');
             $table->enum('role', ['admin', 'customer', 'teknisi'])->default('customer');
             $table->boolean('is_active')->default(true);
+            $table->timestamp('last_login')->nullable();
             $table->rememberToken();
             $table->timestamps();
+            
+            // Index untuk performa query
+            $table->index('email');
+            $table->index('role');
+            $table->index('is_active');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -44,8 +50,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
-        Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('users');
     }
 };
