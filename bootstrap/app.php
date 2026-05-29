@@ -3,10 +3,9 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
-use App\Http\Middleware\Authenticate;
-use App\Http\Middleware\RoleAdmin;
-use App\Http\Middleware\RoleCustomer;
-use App\Http\Middleware\RoleTekhnician;
+use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\CustomerMiddleware;
+use App\Http\Middleware\TeknisiMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -16,12 +15,12 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'auth' => Authenticate::class,
-            'role.admin' => RoleAdmin::class,
-            'role.customer' => RoleCustomer::class,
-            'role.teknisi' => RoleTekhnician::class,
+            'admin' => AdminMiddleware::class,
+            'customer' => CustomerMiddleware::class,
+            'teknisi' => TeknisiMiddleware::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    })
+    ->create();

@@ -1,39 +1,34 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboard;
+use App\Http\Controllers\Customer\DashboardController as CustomerDashboard;
+use App\Http\Controllers\Teknisi\DashboardController as TeknisiDashboard;
+
+Route::get('/', function () {
+    return view('welcome');
+})->name('welcome');
 
 Route::middleware('guest')->group(function () {
-    Route::get('/login', [AuthController::class, 'showLogin'])->name('auth.login');
-    Route::post('/login', [AuthController::class, 'login'])->name('auth.login.post');
-    Route::get('/register', [AuthController::class, 'showRegister'])->name('auth.register');
-    Route::post('/register', [AuthController::class, 'register'])->name('auth.register.post');
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::post('/login', [AuthController::class, 'login'])->name('login.store');
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.store');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-    // Admin Routes
-    Route::middleware('role.admin')->prefix('admin')->name('dashboard.admin')->group(function () {
-        Route::get('/', [DashboardController::class, 'adminDashboard']);
-    });
-
-    // Customer Routes
-    Route::middleware('role.customer')->prefix('customer')->name('dashboard.customer')->group(function () {
-        Route::get('/', [DashboardController::class, 'customerDashboard']);
-    });
-
-    // Teknisi Routes
-    Route::middleware('role.teknisi')->prefix('teknisi')->name('dashboard.teknisi')->group(function () {
-        Route::get('/', [DashboardController::class, 'teknisiDashboard']);
-    });
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-Route::get('/', function () {
-    if (auth()->check()) {
-        return redirect()->route('dashboard');
-    }
-    return redirect()->route('auth.login');
+Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', [AdminDashboard::class, 'index'])->name('dashboard');
+});
+
+Route::middleware(['auth', 'customer'])->prefix('customer')->name('customer.')->group(function () {
+    Route::get('/dashboard', [CustomerDashboard::class, 'index'])->name('dashboard');
+});
+
+Route::middleware(['auth', 'teknisi'])->prefix('teknisi')->name('teknisi.')->group(function () {
+    Route::get('/dashboard', [TeknisiDashboard::class, 'index'])->name('dashboard');
 });
