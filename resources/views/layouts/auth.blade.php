@@ -6,16 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="x-ua-compatible"/>
     <meta name="description" content="Booking Layanan Internet ISP"/>
     <title>LayananINET</title>
-    <!-- CSS files -->
-    <link href="{{ asset('assets/css/tabler.min.css') }}" rel="stylesheet"/>
-    <link href="{{ asset('assets/css/demo.min.css') }}" rel="stylesheet"/>
+    <!-- Tabler CDN CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta.22/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.css" rel="stylesheet"/>
   </head>
   <body class="border-top-wide border-primary d-flex flex-column">
     <div class="page">
       @yield('content')
     </div>
-    <!-- Libs JS -->
-    <script src="{{ asset('assets/js/tabler.min.js') }}"></script>
-    <script src="{{ asset('assets/js/demo.min.js') }}"></script>
+    <!-- Tabler CDN JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta.22/dist/js/tabler.min.js"></script>
   </body>
 </html>
