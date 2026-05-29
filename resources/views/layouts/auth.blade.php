@@ -7,7 +7,7 @@
     <meta name="description" content="Booking Layanan Internet ISP"/>
     <title>LayananINET</title>
     <!-- Tabler CDN CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta.22/dist/css/tabler.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/css/tabler.min.css">
     <link href="https://cdn.jsdelivr.net/npm/@tabler/icons@latest/tabler-icons.css" rel="stylesheet"/>
   </head>
   <body class="border-top-wide border-primary d-flex flex-column">
@@ -15,6 +15,6 @@
       @yield('content')
     </div>
     <!-- Tabler CDN JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@1.0.0-beta.22/dist/js/tabler.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tabler/core@latest/dist/js/tabler.min.js"></script>
   </body>
 </html>
